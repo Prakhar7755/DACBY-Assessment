@@ -50,7 +50,7 @@ A full-stack MERN application that scrapes the top stories from Hacker News, sto
 - Axios
 - Tailwind CSS
 
-## Backend
+## server
 
 - Node.js
 - Express.js
@@ -66,16 +66,16 @@ A full-stack MERN application that scrapes the top stories from Hacker News, sto
 # Project Structure
 
 ```txt
-backend/
+server/
 client/
 ```
 
 ---
 
-# Backend Structure
+# server Structure
 
 ```txt
-backend/src/
+server/src/
 │
 ├── config/
 ├── controllers/
@@ -106,7 +106,7 @@ client/src/
 
 # Environment Variables
 
-Create a `.env` file inside the `backend/` directory:
+Create a `.env` file inside the `server/` directory:
 
 ```env
 PORT=5001
@@ -132,10 +132,10 @@ git clone https://github.com/Prakhar7755/DACBY-Assessment.git
 
 # Backend Setup
 
-## 1. Navigate to backend
+## 1. Navigate to server
 
 ```bash
-cd backend
+cd server
 ```
 
 ## 2. Install dependencies
