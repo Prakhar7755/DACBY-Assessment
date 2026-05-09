@@ -10,7 +10,7 @@ import errorHandler from "./src/middleware/errorHandler.js";
 
 import authRoutes from "./src/routes/auth.routes.js";
 import scrapeRoutes from "./src/routes/scrape.routes.js";
-import scrapeHackerNews from "./src/services/scraper.service.js";
+// import scrapeHackerNews from "./src/services/scraper.service.js";
 import storyRoutes from "./src/routes/story.routes.js";
 
 const app = express();

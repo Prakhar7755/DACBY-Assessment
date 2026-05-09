@@ -1,0 +1,96 @@
+Hello,
+Thank you for applying for the Full Stack Developer (MERN) role. After reviewing applications, you’ve been shortlisted to proceed to the assignment round.
+
+Time Limit: 48 Hours 
+Submission Format: 
+GitHub Repository (with full commit history) 
+Loom Video Walkthrough (5–10 minutes explaining your approach) 
+
+Objective 
+Build a mini full-stack web application using the MERN stack (MongoDB, Express, React, Node.js) that demonstrates your ability to design, develop, and integrate both frontend and backend systems. 
+
+  Assignment Overview 
+
+1. Web Scraper 
+Develop a scraper to fetch data from: 
+https://news.ycombinator.com 
+Requirements: 
+Scrape the top 10 stories 
+Extract and store the following fields: 
+Title 
+URL 
+Points 
+Author 
+Posted Time (postedAt) 
+Save the data in MongoDB 
+
+Scraper should: 
+Run automatically on server start 
+Be triggerable via API: POST /api/scrape 
+
+2.Backend (Node.js + Express) 
+ Authentication (JWT-based): 
+POST /api/auth/register → Register a user 
+POST /api/auth/login → Login user 
+
+  
+Story APIs: 
+GET /api/stories → Fetch all stories (sorted by points in descending order) 
+GET /api/stories/:id → Fetch a single story 
+POST /api/stories/:id/bookmark → Toggle bookmark (Authentication required) 
+
+ 3. Frontend (React) 
+
+  Features to implement: 
+Display list of stories with: 
+Title 
+Points 
+Author 
+Posted time 
+User authentication: 
+Login & Register pages 
+Bookmark functionality: 
+Toggle bookmark for stories 
+Persist bookmark via backend API 
+Protected Bookmarks Page 
+Manage authentication state using React Context API 
+
+Technical Guidelines 
+Use .env file for all environment variables and secrets 
+Follow a clean and scalable folder structure: 
+routes/ 
+models/ 
+controllers/ 
+middleware/ 
+Write clean, readable, and maintainable code 
+
+Avoid: 
+Hardcoded values 
+Unused/commented-out code 
+
+Submission Requirements 
+Your GitHub repository must include: 
+Complete source code (frontend + backend) 
+Proper commit history (multiple meaningful commits required) 
+
+A well-written README.md with: 
+Setup instructions 
+Environment variables 
+How to run the project locally 
+
+Note: Repositories with a single commit will be automatically rejected. 
+
+  
+Bonus (Optional but Recommended) 
+Implement pagination: 
+GET /api/stories?page=1&limit=10 
+Deploy the application and share a live URL 
+(e.g., Render / Railway / Vercel) 
+Evaluation Criteria 
+Code quality & structure 
+API design & functionality 
+Frontend usability & UX 
+Authentication & state management 
+Problem-solving approach (explained in Loom video) 
+
+ Good luck !
