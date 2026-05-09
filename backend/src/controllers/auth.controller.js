@@ -23,6 +23,15 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
+    const token = generateToken(user._id);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
     res.status(201).json({
       success: true,
       token: generateToken(user._id),
@@ -62,9 +71,17 @@ export const loginUser = async (req, res) => {
       });
     }
 
+    const token = generateToken(user._id);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
     res.status(200).json({
       success: true,
-      token: generateToken(user._id),
       user: {
         id: user._id,
         name: user.name,

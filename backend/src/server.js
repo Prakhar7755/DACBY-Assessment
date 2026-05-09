@@ -4,7 +4,7 @@ import scrapeHackerNews from "./services/scraper.service.js";
 const startServer = async (app, PORT) => {
   try {
     await connectDB();
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
       console.log(`🚀 Server running on port ${PORT}`);
        await scrapeHackerNews();
     });
