@@ -7,6 +7,10 @@ import { fileURLToPath } from "url";
 import startServer from "./src/server.js";
 import errorHandler from "./src/middlewares/errorHandler.js";
 
+import authRoutes from "./src/routes/auth.routes.js";
+import scrapeRoutes from "./src/routes/scrape.routes.js";
+import scrapeHackerNews from "./src/services/scraper.service.js";
+
 const app = express();
 const PORT = process.env.PORT || 5001;
 
@@ -20,7 +24,6 @@ const clientPath = path.join(__dirname, "../client/dist");
 // ---------------------------
 app.use(express.json({ limit: "400kb" }));
 app.use(express.urlencoded({ extended: true, limit: "400kb" }));
-
 
 // ---------------------------
 // CORS Setup (Dev Only)
@@ -49,10 +52,12 @@ if (process.env.NODE_ENV !== "production") {
 // ---------------------------
 // API Route Handlers
 // ---------------------------
-// app.use("/api/users", usersRouter);
-app.get("/", (req,res) => { 
-  res.send("Hello, World!")
- });
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+
+app.use("/api/auth", authRoutes);
+app.use("/api/scrape", scrapeRoutes);
 
 // ---------------------------
 // Serve Static Frontend Assets (Production)
