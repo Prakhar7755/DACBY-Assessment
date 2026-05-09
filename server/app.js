@@ -75,8 +75,6 @@ if (process.env.NODE_ENV === 'production') {
 // ---------------------------
 app.use(errorHandler);
 
-scrapeHackerNews().catch((err) => console.error('Initial scraping failed:', err.message));
-
 // ---------------------------
 // Start Server
 // ---------------------------
