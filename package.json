@@ -1,0 +1,18 @@
+{
+  "name": "dacby-assignment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm --prefix server install && npm --prefix client install && npm --prefix client run build",
+    "start": "npm --prefix server start",
+    "format": "npx prettier --write .",
+    "format:check": "npx prettier --check ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "prettier": "^3.8.3"
+  }
+}
