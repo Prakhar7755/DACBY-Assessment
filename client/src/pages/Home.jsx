@@ -14,23 +14,23 @@ function Home() {
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchStories = async () => {
-    try {
-      const { data } = await api.get('/stories');
-
-      setStories(data.stories);
-
-      if (user) {
-        setBookmarks(user.bookmarks || []);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const { data } = await api.get('/stories');
+
+        setStories(data.stories);
+
+        if (user) {
+          setBookmarks(user.bookmarks || []);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchStories();
   }, [user]);
 
@@ -54,29 +54,46 @@ function Home() {
   };
 
   if (loading) {
-    return <p className="p-5">Loading stories...</p>;
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-xl font-medium text-gray-500 animate-pulse">Loading top stories...</p>
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">Hacker News Top Stories</h1>
+      <main className="max-w-4xl mx-auto px-4 py-12">
+        <header className="mb-12">
+          <h1 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 tracking-tight">
+            Hacker News <span className="text-orange-600 italic">Top Stories</span>
+          </h1>
+          <p className="mt-2 text-lg text-gray-600">
+            The most popular stories currently trending on Y Combinator.
+          </p>
+        </header>
 
-        <div className="grid gap-5">
-          {stories.map((story) => (
-            <StoryCard
-              key={story._id}
-              story={story}
-              user={user}
-              onBookmark={handleBookmark}
-              isBookmarked={bookmarks.includes(story._id)}
-            />
-          ))}
+        <div className="space-y-6">
+          {stories.length > 0 ? (
+            stories.map((story) => (
+              <StoryCard
+                key={story._id}
+                story={story}
+                user={user}
+                onBookmark={handleBookmark}
+                isBookmarked={bookmarks.includes(story._id)}
+              />
+            ))
+          ) : (
+            <p className="text-center py-20 text-gray-500 italic">
+              No stories found. Try scraping again.
+            </p>
+          )}
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }
 

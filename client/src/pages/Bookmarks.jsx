@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
 import api from '../api/axios';
 
@@ -14,25 +14,29 @@ function Bookmarks() {
 
   const [loading, setLoading] = useState(true);
 
-  const fetchStories = useCallback(async () => {
-    try {
-      const { data } = await api.get('/stories');
-
-      const bookmarkedStories = data.stories.filter((story) =>
-        user?.bookmarks?.includes(story._id)
-      );
-
-      setStories(bookmarkedStories);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [user?.bookmarks]);
-
   useEffect(() => {
+    let isMounted = true;
+    const fetchStories = async () => {
+      try {
+        const { data } = await api.get('/stories');
+        if (isMounted) {
+          const bookmarkedStories = data.stories.filter((story) =>
+            user?.bookmarks?.includes(story._id)
+          );
+          setStories(bookmarkedStories);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
     fetchStories();
-  }, [fetchStories]);
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.bookmarks]);
 
   const handleBookmark = async (storyId) => {
     try {
@@ -55,33 +59,48 @@ function Bookmarks() {
   };
 
   if (loading) {
-    return <p className="p-5">Loading bookmarks...</p>;
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-xl font-medium text-gray-500 animate-pulse">Loading your bookmarks...</p>
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">Your Bookmarks</h1>
+      <main className="max-w-4xl mx-auto px-4 py-12">
+        <header className="mb-12">
+          <h1 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 tracking-tight">
+            Your <span className="text-orange-600 italic">Bookmarks</span>
+          </h1>
+          <p className="mt-2 text-lg text-gray-600">Stories you&apos;ve saved for later reading.</p>
+        </header>
 
-        {stories.length === 0 ? (
-          <p>No bookmarks yet.</p>
-        ) : (
-          <div className="grid gap-5">
-            {stories.map((story) => (
-              <StoryCard
-                key={story._id}
-                story={story}
-                user={user}
-                onBookmark={handleBookmark}
-                isBookmarked={true}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </>
+        <div className="space-y-6">
+          {stories.length === 0 ? (
+            <div className="bg-white border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center">
+              <p className="text-gray-500 text-lg">
+                No bookmarks yet. Go back to home and save some stories!
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {stories.map((story) => (
+                <StoryCard
+                  key={story._id}
+                  story={story}
+                  user={user}
+                  onBookmark={handleBookmark}
+                  isBookmarked={true}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
   );
 }
 
